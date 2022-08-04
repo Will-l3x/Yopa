@@ -6,9 +6,9 @@ const User = require('../models/Auth')
 // @route POST /api/Auths
 // @access Public
 const registerAuth = asyncHandler (async (req, res) => {
-    const { name, email, password } = req.body
+    const { username, fullname, email, password, dateofbirth, interest, city, phonenumber } = req.body
 
-    if(!name || !email || !password){
+    if(!username || !email || !password || !dateofbirth || !interest || !city || !phonenumber || !fullname) {
         res.status(400)
         throw new Error('Please enter all fields')
         
@@ -26,16 +26,27 @@ const registerAuth = asyncHandler (async (req, res) => {
 
     // Create Auth
     const Auth = await User.create({
-        name,
+        fullname,
         email,
-        password: hashedPassword
+        username,
+        dateofbirth,
+        password: hashedPassword,
+        phonenumber,
+        interest,
+        city
+
     })
 
     if(Auth){
         res.status(201).json({
             _id: Auth.id,
-            name: Auth.name,
+            fullname: Auth.fullname,
             email: Auth.email,
+            username: Auth.username,
+            dateofbirth: Auth.dateofbirth,
+            phonenumber: Auth.phonenumber,
+            interest: Auth.interest,
+            city: Auth.city,
             token: generateToken(Auth._id),
             message: 'Register User'
         })
@@ -59,10 +70,10 @@ const loginAuth = asyncHandler (async (req, res) => {
     if(Auth && (await bcrypt.compare(password, Auth.password))){
         res.json({
             _id: Auth.id,
-            name: Auth.name,
+            fullname: Auth.fullname,
             email: Auth.email,
             token: generateToken(Auth._id),
-            message: 'Login User'
+            message: 'Login Successfull'
         })
     }else{
         res.status(400)
