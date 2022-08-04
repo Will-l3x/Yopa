@@ -27,6 +27,6 @@ app.use('/api', routes);
 
 
 
-app.listen(process.env.PORT || 5000, ()=>{
-    console.log(`Serverr Runninng in ${process.env.NODE_ENV} mode on port ${process.env.PORT}`.yellow.bold)
-})
+app.listen(process.env.PORT || 3000, function(){
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  });
