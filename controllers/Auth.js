@@ -17,7 +17,10 @@ const registerAuth = asyncHandler (async (req, res) => {
     const AuthExists = await User.findOne({ email })
 
     if(AuthExists){
-        res.status(400)
+        res.status(400).json({
+            message: 'email already exists'
+        })
+        
         throw new Error('User already exists')
     }
     // Hash password
@@ -51,7 +54,9 @@ const registerAuth = asyncHandler (async (req, res) => {
             message: 'Register User'
         })
     } else {
-        res.status(400)
+        res.status(400).json({
+            message: 'Something went wrong contact admin'
+        })
         throw new Error('User not created')
     }
     
@@ -76,7 +81,9 @@ const loginAuth = asyncHandler (async (req, res) => {
             message: 'Login Successfull'
         })
     }else{
-        res.status(400)
+        res.status(400).json({
+            message: 'Invalid Credentials'
+        })
         throw new Error('Invalid credentials')
     }
    
