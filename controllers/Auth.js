@@ -51,7 +51,7 @@ const registerAuth = asyncHandler (async (req, res) => {
             interest: Auth.interest,
             city: Auth.city,
             token: generateToken(Auth._id),
-            message: 'Register User',
+            message: 'Registration successful, you can now login',
             success: true
         })
     } else {
