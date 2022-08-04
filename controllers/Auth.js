@@ -51,11 +51,12 @@ const registerAuth = asyncHandler (async (req, res) => {
             interest: Auth.interest,
             city: Auth.city,
             token: generateToken(Auth._id),
-            message: 'Register User'
+            message: 'Register User',
+            success: true
         })
     } else {
         res.status(400).json({
-            message: 'Something went wrong contact admin'
+            message: 'Something went wrong contact admin',
         })
         throw new Error('User not created')
     }
@@ -78,11 +79,13 @@ const loginAuth = asyncHandler (async (req, res) => {
             fullname: Auth.fullname,
             email: Auth.email,
             token: generateToken(Auth._id),
-            message: 'Login Successfull'
+            message: 'Login Successfull',
+            success: true,
         })
     }else{
         res.status(400).json({
-            message: 'Invalid Credentials'
+            message: 'Invalid Credentials',
+            success: false
         })
         throw new Error('Invalid credentials')
     }
