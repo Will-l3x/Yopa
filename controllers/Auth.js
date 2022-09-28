@@ -79,7 +79,7 @@ const loginAuth = asyncHandler (async (req, res) => {
             fullname: Auth.fullname,
             email: Auth.email,
             token: generateToken(Auth._id),
-            message: 'Login Successfull',
+            message: 'Login Successful',
             success: true,
         })
     }else{
