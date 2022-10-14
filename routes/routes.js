@@ -12,7 +12,7 @@ const { protect } = require('../middleware/authMiddleware')
 ///////////////////////////authentification routes//////////////
 router.post('/', registerAuth)
 router.post('/login', loginAuth)
-router.get('/me', getMe)
+router.get('/me', protect, getMe)
 
 
 
