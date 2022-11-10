@@ -92,6 +92,31 @@ const loginAuth = asyncHandler (async (req, res) => {
    
 })
 
+const DeleteAuth = asyncHandler (async (req, res) => {
+    const { email, password } = req.body
+
+    // Check if Auth exists
+    const Auth = await User.findOne({ email })
+
+    if(Auth && (await bcrypt.compare(password, Auth.password))){
+
+        await Auth.remove();
+        res.json({
+            
+            message: 'Deletion Success',
+            success: true,
+        })
+    }else{
+        res.status(400).json({
+            message: 'Invalid Credentials',
+            success: false
+        })
+        throw new Error('Invalid credentials')
+    }
+   
+})
+
+
 // @desc Get Auth data
 // @route GET /api/Auths/me
 // @access Private
@@ -105,5 +130,5 @@ const generateToken = (id) => {
 }
 
 module.exports = {
-    registerAuth, loginAuth, getMe
+    registerAuth, loginAuth, getMe, DeleteAuth
 }
